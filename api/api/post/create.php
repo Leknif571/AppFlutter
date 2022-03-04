@@ -14,6 +14,8 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
+    // $post->id = $data->id;
+
     $post->pseudo = $data->pseudo;
     $post->email = $data->email;
     $post->pass = $data->pass;
@@ -24,10 +26,10 @@
     $result = $post->getByEmailOrUser();
     $num = $result->rowCount();
     
-    if($num>0){
+    if($num==0){
         if($post->create()){
             $arr = array('flag' => true,
-                         'message' => 'compte créer');
+                         'message' => 'compte creer');
             echo json_encode($arr);
         } else{
             $arr = array('flag' => false,
@@ -36,7 +38,7 @@
         }
     }else{
         $arr = array('flag' => false,
-        'message' => 'Utilisateur existant');
+        'message' => 'Utilisateur déjà existant');
         echo json_encode($arr);
     }
     

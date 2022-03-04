@@ -16,8 +16,8 @@ class UpdateRegister {
     String body = jsonEncode(data);
 
     http.Response response = await http.post(
-      Uri.parse('http://localhost:8000/update.php'),
-      headers: {"Content-Type": "application/json"},
+      Uri.parse('http://trocbay2.000webhostapp.com/api/post/update.php'),
+      // headers: {"Content-Type": "application/json"},
       body: body,
     );
     print(body);

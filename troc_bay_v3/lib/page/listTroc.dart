@@ -32,7 +32,7 @@ class _ListTrocState extends State<ListTroc> {
           ),
           Expanded(
             child: FutureBuilder<List<dynamic>>(
-              future: TrocByUser.allTrocsByUser(1),
+              future: TrocByUser.allTrocsByUser(userIdCurr()),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
@@ -57,16 +57,24 @@ class _ListTrocState extends State<ListTroc> {
   }
 
   onGoNew() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const NewTroc()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => NewTroc(id: userIdCurr())));
   }
 
-  // int userCurr() {
-  //   List userCurrV;
-  //   widget.currUser.then((value) {
-  //     if (value != null) value.forEach((k, v) => userCurrV.add(v));
-  //   });
-  //   print(userCurrV);
-  //   return userCurrV[0];
-  // }
+  int userCurrV = 0;
+
+  userCurr() async {
+    await widget.currUser.then((value) {
+      userCurrV = int.parse(value["id"]);
+    });
+    return userCurrV;
+  }
+
+  int userIdCurr() {
+    print(userCurrV);
+    userCurr();
+    print(userCurrV);
+    print(userCurrV.runtimeType);
+    return userCurrV;
+  }
 }

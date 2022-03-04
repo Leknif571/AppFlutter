@@ -90,7 +90,7 @@ class Post{
     
     public function getByEmailOrUser(){
 
-        $query = 'SELECT * FROM User WHERE email = :email AND pass = :pass OR pseudo = :pseudo';
+        $query = 'SELECT * FROM User WHERE email = :email OR pseudo = :pseudo';
 
         $stmt = $this->connect->prepare($query);
             $stmt->bindParam(':email', $this->email);

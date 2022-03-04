@@ -3,15 +3,14 @@ import 'package:http/http.dart' as http;
 
 class TrocByUser {
   static Future<List<dynamic>> allTrocsByUser(int id) async {
-    print(id);
     var data = {
-      "idUser": 2,
+      "idUser": id,
     };
     String body = jsonEncode(data);
 
     http.Response response = await http.post(
-      Uri.parse('http://localhost:8000/getAllByUser.php'),
-      headers: {"Content-Type": "application/json"},
+      Uri.parse('http://trocbay2.000webhostapp.com/api/post/getAllByUser.php'),
+      // headers: {"Content-Type": "application/json"},
       body: body,
     );
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'settingsUser.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.currUser}) : super(key: key);
+  final Future<Map<String, dynamic>> currUser;
   @override
   State<Home> createState() => _HomeState();
 }
@@ -37,6 +38,10 @@ class _HomeState extends State<Home> {
 
   onSettings() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SettingsUser()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => SettingsUser(
+                  currUser: widget.currUser,
+                )));
   }
 }

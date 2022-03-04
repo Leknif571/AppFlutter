@@ -22,15 +22,16 @@ $post->email = $data->email;
 $result = $post->getByEmailOrUserAndPass();
 $num = $result->rowCount();
 
-
-// if($num > 0){
-    $posts_arr = array();
+ $posts_arr = array();
+if($num > 0){
+   
     // $post_arr['data'] = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
         $post_item = array(
+            'flag' => true,
             'id' => $id,
             'email' => $email,
             'pseudo' => $pseudo,
@@ -44,7 +45,13 @@ $num = $result->rowCount();
     }
     echo json_encode($posts_arr);
 
-// }
+}
+else{
+    $arr = array('flag' => false,
+    'message' => 'Compte inexistant');
+    array_push($posts_arr, $arr);
+    echo json_encode($posts_arr);
+}
 
 // echo json_encode('Api fonctionnel');
 ?>

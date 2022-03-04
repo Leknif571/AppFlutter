@@ -78,12 +78,26 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
-  onConnect() {
+  onConnect() async {
     Future<Map<String, dynamic>> login;
     login = Login.verifConnect(_userMail.text, _password.text);
 
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => NavPage(currUser: login)));
+    Map<String, dynamic> log = {};
+
+    await login.then((value) => {
+          if (value != null) {log.addAll(value)}
+        });
+
+    print(log);
+
+    if (log["flag"] == true) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => NavPage(currUser: login)));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(log["message"])),
+      );
+    }
 
     // Login.verifConnect(_userMail.text, _password.text).then((value) {
     //   print(value['email']);

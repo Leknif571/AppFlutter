@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../crud/userCrud/register.dart';
 import '../model/user.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -381,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return null;
   }
 
-  onPressed() {
+  onPressed() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _attente = true;
@@ -398,15 +400,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
       print(user);
 
-      Register.addRegister(user);
-      // register.addRegister(user);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Inscription de ' + _email.text)),
-      );
+      Future<http.Response> reg = Register.addRegister(user);
 
-      setState(() {
-        _attente = false;
-      });
+      Map<String, dynamic> reg2 = {};
+
+      await reg.then((value) => reg2.addAll(jsonDecode(value.body)));
+
+      if (reg2["flag"] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Inscription de ' + _email.text)),
+        );
+
+        setState(() {
+          _attente = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(reg2["message"])));
+      }
     }
   }
 

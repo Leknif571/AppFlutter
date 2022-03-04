@@ -17,6 +17,8 @@
             }catch(PDOException $exception){
                 echo "Database could not be connected: " . $exception->getMessage();
             }
+            var_dump($this->conn);
+            die;
             return $this->conn;
         }
     }  

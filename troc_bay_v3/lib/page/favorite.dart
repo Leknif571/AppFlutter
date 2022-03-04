@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Fav extends StatefulWidget {
-  const Fav({Key? key}) : super(key: key);
+  const Fav({Key? key, required this.currUser}) : super(key: key);
+  final Future<Map<String, dynamic>> currUser;
   @override
   State<Fav> createState() => _FavState();
 }

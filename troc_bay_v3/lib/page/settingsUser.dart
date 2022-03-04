@@ -5,7 +5,9 @@ import 'package:troc_bay_v3/page/updateProfile.dart';
 import '../crud/userCrud/delete.dart';
 
 class SettingsUser extends StatefulWidget {
-  const SettingsUser({Key? key}) : super(key: key);
+  const SettingsUser({Key? key, required this.currUser}) : super(key: key);
+  final Future<Map<String, dynamic>> currUser;
+
   @override
   State<SettingsUser> createState() => _SettingUserState();
 }
@@ -29,13 +31,16 @@ class _SettingUserState extends State<SettingsUser> {
                     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
               ),
               const SizedBox(height: 30),
-              const Text('Pseudo 1'),
+              Text(email1().toString()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text('Nom'), Text('Prenom')],
+                children: [
+                  Text(userIdCurr().toString()),
+                  Text(email1().toString())
+                ],
               ),
-              const Text('Email'),
-              const Text('Localisation'),
+              Text(email1().toString()),
+              Text(email1().toString()),
               ElevatedButton(
                   onPressed: () => onGoUpdate(),
                   child: const Text('Editer profil')),
@@ -51,10 +56,46 @@ class _SettingUserState extends State<SettingsUser> {
   }
 
   onDelete() {
-    Future<String> del = Delete.deleteU(3);
+    Future<String> del = Delete.deleteU(userCurrV);
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => const LogInPage(title: "title")));
+  }
+
+  int email = 0;
+  String nom = '';
+  String prenom = '';
+
+  userCurr() async {
+    await widget.currUser.then((value) {
+      email = int.parse(value["id"]);
+    });
+    // print(email);
+    return email;
+  }
+
+  int email1() {
+    // print(email);
+    userCurr();
+    // print(email);
+    // print(userCurrV.runtimeType);
+    return email;
+  }
+
+  int userCurrV = 0;
+
+  userCurr1() async {
+    await widget.currUser.then((value) {
+      userCurrV = int.parse(value["id"]);
+    });
+    return userCurrV;
+  }
+
+  int userIdCurr() {
+    print(userCurrV);
+    userCurr1();
+    print(userCurrV);
+    return userCurrV;
   }
 }

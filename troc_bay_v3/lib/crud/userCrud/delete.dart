@@ -9,8 +9,8 @@ class Delete {
     String body = jsonEncode(data);
 
     http.Response response = await http.post(
-      Uri.parse('http://localhost:8000/deleteU.php'),
-      headers: {"Content-Type": "application/json"},
+      Uri.parse('http://trocbay2.000webhostapp.com/api/post/deleteU.php'),
+      // headers: {"Content-Type": "application/json"},
       body: body,
     );
 

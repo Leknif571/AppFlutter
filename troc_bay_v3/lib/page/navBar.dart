@@ -21,9 +21,13 @@ class _NavPageState extends State<NavPage> {
         TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
     List<StatefulWidget> _screens = [
-      Home(),
+      Home(
+        currUser: widget.currUser,
+      ),
       Market(),
-      Fav(),
+      Fav(
+        currUser: widget.currUser,
+      ),
       ListTroc(
         currUser: widget.currUser,
       ),

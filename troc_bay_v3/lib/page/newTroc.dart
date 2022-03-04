@@ -4,7 +4,8 @@ import '../model/troc.dart';
 import '../crud/trocCrud/addTroc.dart';
 
 class NewTroc extends StatefulWidget {
-  const NewTroc({Key? key}) : super(key: key);
+  NewTroc({Key? key, required this.id}) : super(key: key);
+  int id;
   @override
   State<NewTroc> createState() => _NewTrocState();
 }
@@ -72,17 +73,6 @@ class _NewTrocState extends State<NewTroc> {
                     minLines: 6,
                     maxLines: null,
                   ),
-                  const Text('Ajouter des photos'),
-                  ElevatedButton(
-                      onPressed: () => print('go'), child: const Text("+")),
-                  // const SizedBox(
-                  //   height: 250,
-                  // )
-                  Expanded(
-                      child: Container(
-                    child: null,
-                  )),
-
                   ElevatedButton(
                       onPressed: onPressed, child: const Text('Valider'))
                 ],
@@ -110,14 +100,14 @@ class _NewTrocState extends State<NewTroc> {
         label: _label.text,
         description: _description.text,
         imageBase64: 'image',
-        idUser: 1);
+        idUser: widget.id);
 
     print(troc);
 
     addTroc.addTrocs(troc);
     // register.addRegister(user);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Votre' + _label.text + "à été ")),
+      const SnackBar(content: Text('Votre troc a été créer')),
     );
 
     // setState(() {
