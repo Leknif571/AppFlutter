@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:troc_bay_v3/page/connexion.dart';
 import '../crud/userCrud/register.dart';
 import '../model/user.dart';
 import 'package:http/http.dart' as http;
@@ -410,6 +411,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Inscription de ' + _email.text)),
         );
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LogInPage(
+                      title: 'none',
+                    )));
 
         setState(() {
           _attente = false;
